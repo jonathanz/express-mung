@@ -39,13 +39,13 @@ mung.json = function json (fn, options) {
             if (res.headersSent)
                 return res;
 
-            // If no returned value from fn, then assume json has been mucked with.
-            if (json === undefined)
-                json = originalJson;
-
             // If null, then 204 No Content
             if (json === null)
                 return res.status(204).end();
+            
+            // If no returned value from fn, then assume json has been mucked with.
+            if (json === undefined)
+                json = originalJson;
 
             // If munged scalar value, then text/plain
             if (originalJson !== json && isScalar(json)) {
